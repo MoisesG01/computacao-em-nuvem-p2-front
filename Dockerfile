@@ -3,6 +3,9 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
+# Argumento para a URL da API
+ARG REACT_APP_API_URL=https://alunos-api-moises.azurewebsites.net
+
 # Copiar arquivos de dependências
 COPY package*.json ./
 
@@ -11,6 +14,9 @@ RUN npm ci
 
 # Copiar código fonte
 COPY . .
+
+# Definir variável de ambiente para o build
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 # Build da aplicação
 RUN npm run build
